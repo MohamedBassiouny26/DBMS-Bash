@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Connecting to an Existing Database Function
+### Connecting to an Existing Database Function
 function connectDatabase 
 {
 
@@ -19,7 +19,7 @@ function connectDatabase
 }
 
 
-#Dropping an existing Database Function
+### Dropping an existing Database Function
 function dropDatabase {
   echo -e "Enter Database Name: \c"
   read name
