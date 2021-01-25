@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function connectDatabase {
+
+}
+
+function dropDatabase {
+  
+}
