@@ -9,7 +9,7 @@ function connectDatabase
 
   cd ./Database/$name 2> /dev/null
 
-  if [[ $? == 0 ]]
+  if [ $? -eq 0 ]
 	then
     echo "Connected to $name Successfully"
   else
@@ -26,7 +26,7 @@ function dropDatabase {
 
   rm -r ./Database/$name 2> /dev/null
 
-  if [[ $? == 0 ]]
+  if [ $? -eq 0 ]
 	then
     echo "Successful Drop for $name Database"
   else
