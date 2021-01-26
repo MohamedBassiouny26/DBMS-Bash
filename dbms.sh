@@ -35,3 +35,17 @@ function dropDatabase {
  fi
 }
 
+### Drop Table Function
+function dropTable {
+  echo -e "Enter table name to drop: \c";
+  read tname;
+  rm tname 2> /dev/null
+  
+  if [ $? -eq 1 ]
+  then
+    echo "Table Dropped Successfully!"
+  else
+    echo "Cannot Drop Table $tname, may be not exists"
+  fi
+}
+
