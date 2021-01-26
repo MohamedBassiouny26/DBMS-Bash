@@ -26,7 +26,7 @@ function dropDatabase {
 
   rm -r ./Database/$name 2> /dev/null
 
-  if [ $? -eq 0 ]
+  if [ -d $name ]
 	then
     echo "Successful Drop for $name Database"
   else
@@ -41,7 +41,7 @@ function dropTable {
   read tname;
   rm tname 2> /dev/null
   
-  if [ $? -eq 1 ]
+  if [ -f $tname ]
   then
     echo "Table Dropped Successfully!"
   else
