@@ -1,2 +1,6 @@
-name:type;name:string;id:int;
-pk:id
+id:int;name:string;
+1;ahmed;
+2;mohamed;
+3;mostaga;
+4;asmaa;
+5;nono;
