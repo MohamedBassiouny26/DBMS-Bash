@@ -39,13 +39,96 @@ function dropDatabase {
 function dropTable {
   echo -e "Enter table name to drop: \c";
   read tname;
-  rm tname 2> /dev/null
-  
+  rm $tname .$tname 2> /dev/null
+
   if [ -f $tname ]
   then
-    echo "Table Dropped Successfully!"
+    echo "Table $tname Dropped Successfully"
   else
-    echo "Cannot Drop Table $tname, may be not exists"
+    echo "Cannot Drop Table $tname, table may not exists"
   fi
 }
+
+
+
+
+### Bassiouny
+function tableMenue {
+    select option in "Create table" "insert into table" "drop table" "select from table"
+    do 
+        case $REPLY in 
+        1)  #create new table
+            createTable
+            tableMenue;;  
+        2)  #List databases
+            listDBs;;
+        3)  #Drop table
+            dropTable;;
+	4)  #Select from table
+            selectAll;;     
+        *) echo " Please Select from menu " ; mainMenu;
+        esac
+    done
+}
+function createTable {
+    echo Please,Enter Table Name
+    read tableName
+    if [ -f $tableName ]
+    then
+        echo Table already exist
+        createTable
+    else
+        touch $tableName
+    fi
+    echo Enter number of columns
+    read colNum
+    typeset -i i=0
+
+    while [ $i -lt $colNum ] 
+    do
+        echo Enter column Name
+        read colName
+        echo "Enter column type"
+        read colType
+        if [ -z $pk ]
+        then
+            echo Primarykey??
+            select answer in "yes" "no"
+            do 
+                case $REPLY in 
+                1) 
+                    pk=$colName
+                    break;;
+                2) break;;
+                *) echo " Please Select from yes or no " ;;
+                esac
+            done
+        fi
+	if [ $i -eq $colNum ] 
+	then
+	      struct=$struct$colName
+        else
+		separator=":"
+
+    	      struct=$struct$colName$separator
+    	fi
+	
+        i=$i+1
+    done
+  echo -e $struct >> $tableName
+    tableMenue
+}
+
+function selectAll {
+  echo -e "Enter Table Name: \c"
+  read tName
+  column -t -s ':' $tName 2> /dev/null
+  if [[ $? != 0 ]]
+  then
+    echo "Error Displaying Table $tName"
+  fi
+  tableMenue
+}
+tableMenue
+
 
