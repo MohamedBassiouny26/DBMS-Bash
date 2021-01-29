@@ -45,6 +45,7 @@ function createTable {
                 case $REPLY in 
                 1) 
                     pk=$colName
+                    colName+="(pk)"
                     break;;
                 2)  break;;
                 *) echo " Please Select from yes or no " ;;
@@ -54,7 +55,7 @@ function createTable {
         columns+="$colName:$colType;"
         i=$i+1
     done
-    echo $columns>>$tableName;
+    printf $columns>>$tableName;
     # echo pk:$pk>>$tableName;
     tableMenue
 }
@@ -77,16 +78,38 @@ function insertIntoTable {
 function insert {
     typeset -i i=1;
     colName=`cut -d";" -f $i $1|cut -d":" -f 1|head -1`;
+    colType=`cut -d";" -f $i $1|cut -d":" -f 2|head -1`;
     field='';
     while [[ -n $colName ]]
     do
         echo "Enter Value of $colName";
-        read 
-        field+="$REPLY;"
+        read value
+        testInput $value $colType
+        if [ $? -eq 1 ]
+        then
+            field+="$value;"
+        else
+            echo "Somthing Wrong!"
+            tableMenue
+        fi
         i=$i+1;
-        colName=`cut -d";" -f $i $1|cut -d":" -f 1|head -1`;          
+        colName=`cut -d";" -f $i $1|cut -d":" -f 1|head -1`; 
+        colType=`cut -d";" -f $i $1|cut -d":" -f 2|head -1`;
     done
-    # printf "\n">>$1
-    echo "$field">>$1
+    printf "\n">>$1
+    printf "$field">>$1
+}
+function testInput {
+    # echo $1
+    case $1 in 
+         [a-z]* ) type="string";;
+         [0-9]* ) type="int";;
+    esac
+     if [[ "$type" == "$2" ]]
+     then
+        return 1
+     else
+        return 0
+     fi
 }
 tableMenue
