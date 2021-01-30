@@ -1,0 +1,4 @@
+id(pk):int;name:string;
+1;mostafa;
+3;ahmed;
+mostafa;mostafa;
