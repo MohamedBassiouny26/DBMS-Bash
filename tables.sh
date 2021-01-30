@@ -2,7 +2,7 @@
 PS3="[$1] :"
 cd $1
 function tableMenue {
-    select option in "Create table" "insert into table" "drop table"
+    select option in "Create table" "insert into table" "drop table" "select table"
     do 
         case $REPLY in 
         1)  #create new table
@@ -13,6 +13,9 @@ function tableMenue {
             tableMenue;;
         3)  #drop table
             createTable;;    
+        4)  #select table
+            selectAll;;    
+
         *) echo " Please Select from menu " ; mainMenu;
         esac
     done
@@ -35,8 +38,13 @@ function createTable {
     do
         echo "Enter column Name"
         read colName
-        echo "Enter coumn type"
-        read colType
+        echo "Select column type"
+        select type in "int" "string"
+        do
+            colType=$type
+            break
+        done
+        # read colType
         if [ -z $pk ]
         then
             echo "Primarykey??"
@@ -58,7 +66,8 @@ function createTable {
     printf $columns>>$tableName;
     # echo pk:$pk>>$tableName;
     tableMenue
-}
+}    
+
 function insertIntoTable {
     tables=`ls`;
     echo "Please Select Table To Insert Into :"
@@ -111,5 +120,15 @@ function testInput {
      else
         return 0
      fi
+}
+function selectAll {
+  echo -e "Enter Table Name: \c"
+  read tName
+  column -t -s ';' $tName 2> /dev/null
+  if [[ $? != 0 ]]
+  then
+    echo "Error Displaying Table $tName"
+  fi
+  tableMenue
 }
 tableMenue
