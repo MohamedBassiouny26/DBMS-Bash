@@ -1,7 +1,7 @@
 #!/bin/bash
 PS3="[$1] :"
 function tableMenue {
-    select option in "Create table" "insert into table" "drop table" "select table" "Update table"
+    select option in "Create table" "insert into table" "drop table" "select table" "Update table" "Delete From Table"
     do 
         case $REPLY in 
         1)  #create new table
@@ -15,6 +15,7 @@ function tableMenue {
         4)  #select table
             selectAll;;    
         5) updateTable;;
+        6) del;;
         *) echo " Please Select from menu " ; mainMenu;
         esac
     done
@@ -22,13 +23,6 @@ function tableMenue {
 function createTable {
     echo "Please,Enter Table Name"
     read tableName
-    # if [ -f $tableName ]
-    # then
-    #     echo "Table already exist"
-    #     tableMenue
-    # else
-    #     touch $tableName
-    # fi
     echo "Enter number of columns"
     read colNum
     testInput $colNum "int"
@@ -113,6 +107,13 @@ function insert {
             echo "Somthing Wrong!"
             tableMenue
         fi
+        echo $testPk
+        checkPk $1 $value
+        if [ $? -eq 0 ]
+        then
+             echo "this value exist in pk column!"
+             tableMenue
+        fi
         i=$i+1;
         colName=`cut -d";" -f $i $1|cut -d":" -f 1|head -1`; 
         colType=`cut -d";" -f $i $1|cut -d":" -f 2|head -1`;
@@ -132,6 +133,22 @@ function testInput {
      else
         return 0
      fi
+}
+function checkPk {
+    fieldNumber=`awk -v RS=';' "/pk/"'{print NR}' $1`
+    pksValues=`sed '1d' $1|cut -d ";" -f $fieldNumber `
+    for value in $pksValues
+    do
+        if [ "$2"=="$value"  ] 
+        then 
+            return 0
+        fi
+    done
+    if (( $2==$value )) 
+    then    
+        return 0
+    fi
+    return 1
 }
 function selectAll {
   echo -e "Enter Table Name: \c"
@@ -208,5 +225,31 @@ function updateTable {
          }
       }' $tableName)
     sed -i ''$searchResult's/'$oldValue'/'$newValue'/g' $tableName 2>>/dev/null
+}
+function del {
+  echo -e "Enter Table Name: \c"
+  read tName
+  echo -e "Enter Condition Column name: \c"
+  read field
+  fid=$(awk 'BEGIN{FS=":"}{if(NR==1){for(i=1;i<=NF;i++){if($i=="'$field'") print i}}}' $tName)
+  if [ $fid -eq "" ]
+  then
+    echo "Not Found"
+    tablesMenue
+  else
+    echo -e "Enter Condition Value: \c"
+    read val
+    res=$(awk 'BEGIN{FS=":"}{if ($'$fid'=="'$val'") print $'$fid'}' $tName 2> /dev/null)
+    if [[ $res == "" ]]
+    then
+      echo "Value Not Found"
+      tableMenue
+    else
+      NR=$(awk 'BEGIN{FS=":"}{if ($'$fid'=="'$val'") print NR}' $tName 2> /dev/null)
+      sed -i ''$NR'd' $tName 2> /dev/null
+      echo "Row Deleted Successfully"
+      tableMenue
+    fi
+  fi
 }
 tableMenue
