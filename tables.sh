@@ -139,15 +139,22 @@ function testInput {
 function checkPk {
     fieldNumber=`awk -v RS=';' "/pk/"'{print NR}' $1`
     pksValues=`sed '1d' $1|cut -d ";" -f $fieldNumber `
+    re='^[0-9]+$'
     for value in $pksValues
     do
-        if (( $2==$value )) 
-        then    
-            return 0
-        fi
-        if [ $2=$value ] 
-        then 
-            return 0
+        if ! [[ $2 =~ $re ]] ; 
+        then
+            # type="string"
+            if [ $2 = $value ]
+            then
+                return 0
+            fi
+        else
+            # type="int"
+            if [ $2 -eq $value ]
+            then
+                return 0
+            fi
         fi
     done
     return 1
