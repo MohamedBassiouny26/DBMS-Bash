@@ -123,31 +123,33 @@ function insert {
 }
 function testInput {
     # echo $1
-    case $1 in 
-         [a-z]* ) type="string";;
-         [0-9]* ) type="int";;
-    esac
-     if [[ "$type" == "$2" ]]
-     then
+    re='^[0-9]+$'
+    if ! [[ $1 =~ $re ]] ; then
+        type="string"
+    else
+        type="int"
+    fi
+    if [[ "$type" == "$2" ]]
+    then
         return 1
-     else
+    else
         return 0
-     fi
+    fi
 }
 function checkPk {
     fieldNumber=`awk -v RS=';' "/pk/"'{print NR}' $1`
     pksValues=`sed '1d' $1|cut -d ";" -f $fieldNumber `
     for value in $pksValues
     do
-        if [ "$2"=="$value"  ] 
+        if (( $2==$value )) 
+        then    
+            return 0
+        fi
+        if [ $2=$value ] 
         then 
             return 0
         fi
     done
-    if (( $2==$value )) 
-    then    
-        return 0
-    fi
     return 1
 }
 function selectAll {
