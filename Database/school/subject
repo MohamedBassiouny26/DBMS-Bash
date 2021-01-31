@@ -1,5 +1,4 @@
-name(pk):string;
-c++;
-c++;
-c++;
-python;
+id(pk):int;name:string;score:int;
+1;c++;20;
+5;javaScript;70;
+3;html;50;

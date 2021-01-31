@@ -201,8 +201,8 @@ function updateTable {
     echo "enter conditon value "
     read value
     #line number
-    searchResult=`cut -d ";" -f $fieldNumber $tableName 2>/dev/null|awk "/$value/ "'{print NR}' $tableName`
-    echo $searchResult|cut -d " " -f 1 
+    searchResult=`cut -d ";" -f $fieldNumber $tableName 2>/dev/null|awk "/$value/"'{print NR}' `
+    echo $searchResult  
     if [ -z $searchResult ]
     then
     echo "value not exist"
@@ -218,8 +218,6 @@ function updateTable {
     fi
     echo $updateNum
     colType=`cut -d";" -f $updateNum $tableName|cut -d":" -f 2|head -1`;
-    echo $colType
-    # echo $updateNum #filed number
     echo "enter new value"
     read newValue
     testInput $newValue $colType
@@ -228,8 +226,14 @@ function updateTable {
         echo "Wrong Type"
         tableMenue
     fi
+    checkPk $tableName $newValue
+    if [ $? -eq 0 ]
+    then
+        echo "pk exist"
+        tableMenue
+    fi
     oldValue=$(awk 'BEGIN{FS=";"} {
-     if(NR=="'$searchResult'"){
+    if(NR=="'$searchResult'"){
          print $'$updateNum';     
          }
       }' $tableName)
@@ -240,24 +244,26 @@ function del {
   read tName
   echo -e "Enter Condition Column name: \c"
   read field
-  fid=$(awk 'BEGIN{FS=":"}{if(NR==1){for(i=1;i<=NF;i++){if($i=="'$field'") print i}}}' $tName)
-  if [ $fid -eq "" ]
+  fid=`awk -v RS=';' "/$field/ "'{print NR}' $tName`
+  echo $fid
+  if [ -z $fid  ]
   then
     echo "Not Found"
     tablesMenue
   else
     echo -e "Enter Condition Value: \c"
     read val
-    res=$(awk 'BEGIN{FS=":"}{if ($'$fid'=="'$val'") print $'$fid'}' $tName 2> /dev/null)
-    if [[ $res == "" ]]
+    res=`cut -d ";" -f $fid $tName 2>/dev/null|awk "/$val/ "'{print NR}' `
+    if [[ -z $res  ]]
     then
       echo "Value Not Found"
       tableMenue
     else
-      NR=$(awk 'BEGIN{FS=":"}{if ($'$fid'=="'$val'") print NR}' $tName 2> /dev/null)
-      sed -i ''$NR'd' $tName 2> /dev/null
-      echo "Row Deleted Successfully"
-      tableMenue
+    echo $res
+    #   NR=$(awk 'BEGIN{FS=":"}{if ($'$fid'=="'$val'") print NR}' $tName 2> /dev/null)
+      sed -i ''$res'd' $tName 2> /dev/null
+       echo "Row Deleted Successfully"
+       tableMenue
     fi
   fi
 }
