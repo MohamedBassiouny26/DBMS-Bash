@@ -18,5 +18,5 @@ Features Supported by the project
 ---
 How it works
 ---
-![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/iti-logo.png)
-![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/git.png)
+![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/iti-logo.png=100x100)
+![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/git.png=100x100)
