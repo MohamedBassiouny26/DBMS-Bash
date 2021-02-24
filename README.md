@@ -4,7 +4,7 @@ This is a simple DBMS project using Bash Script\
 Implemented by @Mohamed_Salah and @Mohamed_Bassiouny - ITI intake 41 - IOT Track
 
 ---
-Features Supported by the project
+## Features Supported by the project
 ---
 * Create/Drop Database
 * List Existing Database
@@ -16,7 +16,15 @@ Features Supported by the project
 
 
 ---
-How it works
+## How it works
+---
+
+### Donwload and go to the directory of the project and run the following command.
+
+```bash
+./DBMS.sh
+```
+
 ---
 ![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/iti-logo%20(1).png)
 ![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/git.png)
