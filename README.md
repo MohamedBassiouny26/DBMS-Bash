@@ -1,7 +1,7 @@
 # Bash Script DBMS
 
 This is a simple DBMS project using Bash Script\
-Implemented by @Mohamed_Salah and @Mohamed_Bassiouny - ITI intake 41 - IOT Track\
+Implemented by @Mohamed_Salah and @Mohamed_Bassiouny - ITI intake 41 - IOT Track
 
 ---
 Features Supported by the project
@@ -13,3 +13,8 @@ Features Supported by the project
 * Select All Data from table
 * Delete a row by id from table
 * Update a row data by id from table
+
+
+
+
+m
