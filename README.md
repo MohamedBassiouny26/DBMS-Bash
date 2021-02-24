@@ -17,7 +17,6 @@ Implemented by @Mohamed_Salah and @Mohamed_Bassiouny - ITI intake 41 - IOT Track
 
 ---
 ## How it works
----
 
 ### Donwload and go to the directory of the project and run the following command.
 
