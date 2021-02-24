@@ -26,6 +26,9 @@ Implemented by @Mohamed_Salah and @Mohamed_Bassiouny - ITI intake 41 - IOT Track
 ### A menu displays to you and type the number of choice you want as you see:
 ![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/cmd.jpeg)
 
+### When you type choice "4" to connect to a DB, a list of table functions displays for you as follows
+![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/cmd1.jpeg)
+
 ---
 ![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/iti-logo%20(1).png)
 ![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/git.png)
