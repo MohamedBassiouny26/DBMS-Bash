@@ -23,6 +23,8 @@ Implemented by @Mohamed_Salah and @Mohamed_Bassiouny - ITI intake 41 - IOT Track
 ```bash
 ./DBMS.sh
 ```
+### A menu displays to you and type the number of choice you want as you see:
+![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/cmd.jpeg)
 
 ---
 ![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/iti-logo%20(1).png)
