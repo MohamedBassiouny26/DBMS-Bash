@@ -9,3 +9,7 @@ Features Supported by the project
 * Create/Drop Database
 * List Existing Database
 * Connect to Existing Database
+* Create/Drop table
+* Select All Data from table
+* Delete a row by id from table
+* Update a row data by id from table
