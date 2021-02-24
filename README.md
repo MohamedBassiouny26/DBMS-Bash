@@ -18,3 +18,4 @@ Features Supported by the project
 ---
 How it works
 ---
+![alt text](https://raw.githubusercontent.com/MohamedBassiouny26/DBMS-Bash/master/iti-logo.png)
